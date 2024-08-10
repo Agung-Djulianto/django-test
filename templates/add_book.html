@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+    {% load static %}
+    <title>Perpustakaan</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/aos/aos.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/remixicon/remixicon.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="icon" href="{% static 'assets/img/hospital-building.png' %}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header id="header" class="fixed-top" style="background-color: #37517e;">
+        <div class="container d-flex align-items-center">
+            <h1 class="logo me-auto"><a href="/">Perpustakaan</a></h1>
+            <nav id="navbar" class="navbar">
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+        </div>
+    </header><!-- End Header -->
+    <br>
+    <div class="container mt-5">
+        <h2>Tambah Buku</h2>
+        <form action="{% url 'books:book_create' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Judul Buku:</label>
+                <input type="text" class="form-control" name="title" maxlength="200" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Penulis:</label>
+                <select class="form-control" name="author" required>
+                    <option value="">Pilih Penulis</option>
+                    {% for author in authors %}
+                    <option value="{{ author.id }}">{{ author.first_name }} {{ author.last_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Deskripsi:</label>
+                <textarea class="form-control" name="description" rows="5" required></textarea>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Kategori:</label>
+                <select class="form-control" name="category" required>
+                    <option value="">Pilih Kategori</option>
+                    {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>ISBN:</label>
+                <input type="text" class="form-control" name="isbn" maxlength="13" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Penerbit:</label>
+                <input type="text" class="form-control" name="publisher" maxlength="100" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Tanggal Terbit:</label>
+                <input type="date" class="form-control" name="publication_date" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Jumlah Halaman:</label>
+                <input type="number" class="form-control" name="num_pages" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Bahasa:</label>
+                <input type="text" class="form-control" name="language" maxlength="50" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>PDF Buku:</label>
+                <input type="file" class="form-control" name="pdf" required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Cover Buku:</label>
+                <input type="file" class="form-control" name="cover">
+            </div>
+            <br>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Tambah</button>
+            </div>
+        </form>
+    </div>
+    
+
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="container footer-bottom clearfix">
+            <div class="copyright" style="font-family: Poppins;">
+                &copy; Copyright by <strong><span>Me</span></strong>
+            </div>
+            <div class="credits" style="font-family: Poppins;">
+                Designed by KKMN
+            </div>
+        </div>
+    </footer><!-- End Footer -->
+
+    <!-- JavaScript -->
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
+    <script>$('.data_table').DataTable();</script>
+    <script src="{% static 'assets/vendor/aos/aos.js' %}"></script>
+    <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/glightbox/js/glightbox.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/swiper/swiper-bundle.min.js' %}"></script>
+    <script src="{% static 'assets/vendor/waypoints/noframework.waypoints.js' %}"></script>
+    <script src="{% static 'assets/vendor/php-email-form/validate.js' %}"></script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+</body>
+</html>
